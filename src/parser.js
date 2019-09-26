@@ -13,8 +13,8 @@ var produceSQL = (input) => {
     const { fromClausePrepared, queryStatements } = parseStructure(input.trim())
     const { whereClausePrepared, selectClausePrepared } = parseStatements(queryStatements.trim())
     return buildSQL({ selectClausePrepared, fromClausePrepared, whereClausePrepared })
-  } catch (error) {
-    console.log(error)
+  } catch (err) {
+    throw Error(err)
   }
 }
 

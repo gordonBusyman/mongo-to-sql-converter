@@ -25,7 +25,7 @@ const parseObjFromString = (string) => {
   try {
     acorn.parse(string)
   } catch (err) {
-    throw Error('Non-valid JS object in find arguments')
+    throw Error('Non-valid JS object in find arguments: ' + string)
   }
   // extract obj from string
   const obj = new Function('return ' + string)()

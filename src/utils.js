@@ -1,4 +1,4 @@
-const acorn = require('acorn')
+const JSON5 = require('json5')
 
 const { MONGO_QUERY_OPERATOR } = require('./constants')
 
@@ -18,22 +18,13 @@ const operatorsMap = {
 /**
  *
  * @param {*} string
- * Return a JS object parsed from string
+ *
+ * convert given string to JS object using JSON5 library, as the string syntax is exactly JSON5 syntax
  */
 const parseObjFromString = (string) => {
-  // check for valid JS code usind acorn lib
-  try {
-    acorn.parse(string)
-  } catch (err) {
-    throw Error('Non-valid JS object in find arguments: ' + string)
-  }
-  // extract obj from string
-  const obj = new Function('return ' + string)()
-  if (typeof obj === 'object') {
-    return obj
-  } else {
-    throw Error('Unable to parse object from find arguments')
-  }
+  const obj = JSON5.parse(string)
+
+  return obj
 }
 
 /**
@@ -45,7 +36,7 @@ const parseObjFromString = (string) => {
  */
 const getTyppedOperand = (operand, operator, field) => {
   if (typeof operand === 'string') { // wrap strings in double quots
-    return '"' + operand + '"'
+    return "'" + operand + "'"
   } else if (operator === 'IN') { // wrap IN arguments in brackers
     operand = operand
       .map(op => getTyppedOperand(op, null))

@@ -30,7 +30,9 @@ const parseStructure = (originalQuery) => {
    * parsing strategy is to use indexOf(char) and then slice() instead if split(char)
    * the reason: it is possible LIKE statement to contain a dot
    * */
-
+  if (originalQuery.length < 1) {
+    throw Error('Empty query')
+  }
   // check if query starts with db
   let index = originalQuery.indexOf('.')
   if (index === -1) {

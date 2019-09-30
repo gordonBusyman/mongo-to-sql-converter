@@ -1,5 +1,5 @@
 
-const parser = require('mongo-parse')
+const mongoParse = require('mongo-parse')
 
 const {
   operatorsMap,
@@ -40,7 +40,7 @@ const parseStructure = (originalQuery) => {
   }
   const prefix = originalQuery.slice(0, index)
   if (prefix !== 'db') {
-    throw Error('Not a query')
+    throw Error('Wrong format')
   }
 
   // parse the collection name
@@ -95,9 +95,9 @@ const parseStatements = (originalStatements) => {
   const query = parseObjFromString(preparedForObjectParsing)
 
   // parse where clause to JS-readable format
-  const whereParsed = parser.parse(query[0])
+  const whereParsed = mongoParse.parse(query[0])
   // parse select clause to JS-readable format
-  const selectParsed = parser.parse(query[1])
+  const selectParsed = mongoParse.parse(query[1])
 
   // build usable prepared WHERE
   const whereClausePrepared = whereParsed.parts.reduce((prev, curr) => [
@@ -130,7 +130,7 @@ const prepareWhereClause = (currentMongoParserElement) => {
   if (typeof field === 'undefined') {
     // parse nested elements
     const nested = operand.reduce((prev, curr) => {
-      const parsed = parser.parse(curr)
+      const parsed = mongoParse.parse(curr)
       return [...prev, prepareWhereClause(parsed.parts[0])]
     }, [])
 
@@ -170,5 +170,8 @@ const buildSQL = (describedQuery) => {
 }
 
 module.exports = {
-  produceSQL
+  produceSQL,
+  parseStructure,
+  parseStatements,
+  buildSQL
 }

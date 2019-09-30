@@ -158,13 +158,14 @@ const prepareWhereClause = (currentMongoParserElement) => {
 const buildSQL = (describedQuery) => {
   const { selectClausePrepared, fromClausePrepared, whereClausePrepared } = describedQuery
 
-  const select = 'SELECT ' + (selectClausePrepared.length > 0 ? selectClausePrepared.join(', ') : '*')
-  const from = 'FROM ' + fromClausePrepared
-
   // build WHERE string clause by adding each element of array to it, separated with AND
-  const where = 'WHERE ' + whereClausePrepared.reduce((prev, curr) => [
+  const whereClauseSQL = whereClausePrepared.reduce((prev, curr) => [
     ...prev, buildWhereElement(curr)
   ], []).join(' AND ')
+
+  const select = 'SELECT ' + (selectClausePrepared.length > 0 ? selectClausePrepared.join(', ') : '*')
+  const from = 'FROM ' + fromClausePrepared
+  const where = 'WHERE ' + whereClauseSQL
 
   return select + ' ' + from + ' ' + where + ';'
 }

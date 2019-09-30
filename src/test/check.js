@@ -1,5 +1,5 @@
 
-const { produceSQL } = require('./parser')
+const { produceSQL } = require('../parser')
 
 const mongoQueries = [
   "db.user.find({name: 'julio'});",

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "standard && jest",
-    "demo": "node ./src/check.js"
+    "demo": "node ./src/test/check.js"
   },
   "author": "Ivan Tarbakou",
   "license": "ISC",

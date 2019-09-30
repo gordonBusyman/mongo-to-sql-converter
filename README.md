@@ -18,3 +18,5 @@ List of supported operators
 The actual translator is parser.js and function `produceSQL`
 
 ```npm run demo``` will run the demo with predefined parameters
+
+```npm run test``` will run the tests

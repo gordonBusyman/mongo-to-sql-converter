@@ -36,7 +36,7 @@ const mongoQueries = {
   empty: ''
 }
 
-const parser = require('../parser')
+const parser = require('../index')
 
 describe('General functionality', () => {
   it('should translate MongoDB queries into SQL-leke queries', () => {

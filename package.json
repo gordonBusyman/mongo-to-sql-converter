@@ -1,7 +1,7 @@
 {
-  "name": "fishbowl_test",
+  "name": "mongo-to-sql-converter",
   "version": "1.0.0",
-  "description": "Fishbowl test task",
+  "description": "MongoDB queries to SQL converter",
   "main": "index.js",
   "scripts": {
     "test": "standard && jest",

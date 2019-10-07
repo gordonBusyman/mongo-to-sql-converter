@@ -7,8 +7,12 @@
     "test": "standard && jest",
     "demo": "node ./src/test/check.js"
   },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/gordonBusyman/mongo-to-sql-converter"
+  },
   "author": "Ivan Tarbakou",
-  "license": "ISC",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "json5": "^2.1.0",

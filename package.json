@@ -2,7 +2,7 @@
   "name": "mongo-to-sql-converter",
   "version": "1.0.0",
   "description": "MongoDB queries to SQL converter",
-  "main": ".src/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "standard && jest",
     "demo": "node ./src/test/check.js"

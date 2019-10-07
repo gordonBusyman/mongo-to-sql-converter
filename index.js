@@ -5,8 +5,8 @@ const {
   operatorsMap,
   parseObjFromString,
   buildWhereElement
-} = require('./utils')
-const { MONGO_QUERY_OPERATOR } = require('./constants')
+} = require('./src/utils')
+const { MONGO_QUERY_OPERATOR } = require('./src/constants')
 
 var produceSQL = (input) => {
   try {

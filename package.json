@@ -13,7 +13,6 @@
   },
   "author": "Ivan Tarbakou",
   "license": "MIT",
-  "private": true,
   "dependencies": {
     "json5": "^2.1.0",
     "mongo-parse": "^2.1.0"

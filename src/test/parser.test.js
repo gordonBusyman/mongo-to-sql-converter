@@ -4,31 +4,38 @@ const mongoQueries = {
   proper: [
     {
       input: "db.user.find({age: {$gte: 21}, name: 'julio', contribs: { $in: [ 'ALGOL', 'Lisp' ]}},{name: 1, _id: 1});",
-      output: "SELECT name, _id FROM user WHERE age >= 21 AND name = 'julio' AND contribs IN ('ALGOL', 'Lisp');"
+      output: "SELECT name, _id FROM user WHERE age >= 21 AND name = 'julio' AND contribs IN ('ALGOL', 'Lisp');",
+      outputId: "SELECT name, id FROM user WHERE age >= 21 AND name = 'julio' AND contribs IN ('ALGOL', 'Lisp');"
     },
     {
       input: "db.user.find({name: 'julio'});",
-      output: "SELECT * FROM user WHERE name = 'julio';"
+      output: "SELECT * FROM user WHERE name = 'julio';",
+      outputId: "SELECT * FROM user WHERE name = 'julio';"
     },
     {
       input: 'db.user.find({_id: 23113},{name: 1, age: 1});',
-      output: 'SELECT name, age FROM user WHERE _id = 23113;'
+      output: 'SELECT name, age FROM user WHERE _id = 23113;',
+      outputId: 'SELECT name, age FROM user WHERE id = 23113;'
     },
     {
       input: 'db.user.find({age: {$gte: 21}},{name: 1, _id: 1});',
-      output: 'SELECT name, _id FROM user WHERE age >= 21;'
+      output: 'SELECT name, _id FROM user WHERE age >= 21;',
+      outputId: 'SELECT name, id FROM user WHERE age >= 21;'
     },
     {
       input: "db.user.find({age: {$gte: 21}, name: 'julio', contribs: { $in: [ 'ALGOL', 'Lisp' ]}},{name: 1, _id: 1});",
-      output: "SELECT name, _id FROM user WHERE age >= 21 AND name = 'julio' AND contribs IN ('ALGOL', 'Lisp');"
+      output: "SELECT name, _id FROM user WHERE age >= 21 AND name = 'julio' AND contribs IN ('ALGOL', 'Lisp');",
+      outputId: "SELECT name, id FROM user WHERE age >= 21 AND name = 'julio' AND contribs IN ('ALGOL', 'Lisp');"
     },
     {
       input: "db.user.find({age: {$gte: 21}, name: 'julio', contribs: { $in: [ 33, 2 ]}},{name: 1, _id: 1});",
-      output: "SELECT name, _id FROM user WHERE age >= 21 AND name = 'julio' AND contribs IN (33, 2);"
+      output: "SELECT name, _id FROM user WHERE age >= 21 AND name = 'julio' AND contribs IN (33, 2);",
+      outputId: "SELECT name, id FROM user WHERE age >= 21 AND name = 'julio' AND contribs IN (33, 2);"
     },
     {
       input: 'db.user.find({ $or: [ { quantity: { $lt: 20 } }, { price: 10 } ]})',
-      output: 'SELECT * FROM user WHERE (quantity < 20 OR price = 10);'
+      output: 'SELECT * FROM user WHERE (quantity < 20 OR price = 10);',
+      outputId: 'SELECT * FROM user WHERE (quantity < 20 OR price = 10);'
     }
   ],
   insert: "db.user.insert({age: {$gte: 21}, name: 'julio'});",
@@ -36,10 +43,10 @@ const mongoQueries = {
   empty: ''
 }
 
-const parser = require('../../index')
+const parser = require('../converter')
 
 describe('General functionality', () => {
-  it('should translate MongoDB queries into SQL-leke queries', () => {
+  it('should translate MongoDB queries into SQL-like queries', () => {
     mongoQueries.proper.map(mockedQuery => {
       let outputString
       try {
@@ -48,6 +55,18 @@ describe('General functionality', () => {
         throw new Error(error)
       }
       expect(outputString).toEqual(mockedQuery.output)
+    })
+  })
+
+  it('should translate MongoDB queries into SQL-like queries removing undescore before id', () => {
+    mongoQueries.proper.map(mockedQuery => {
+      let outputString
+      try {
+        outputString = parser.produceSQL(mockedQuery.input, { changeUnerscoreID: true })
+      } catch (error) {
+        throw new Error(error)
+      }
+      expect(outputString).toEqual(mockedQuery.outputId)
     })
   })
 })

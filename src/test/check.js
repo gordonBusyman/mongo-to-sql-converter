@@ -1,9 +1,9 @@
 
-const { produceSQL } = require('../../index')
+const { produceSQL } = require('../converter')
 
 const mongoQueries = [
   "db.user.find({name: 'julio'});",
-  'db.user.find({_id: 23113},{name: 1, age: 1});',
+  'db.user.find({_id: 23113},{name: 1, age: 1, _id: 1});',
   'db.user.find({age: {$gte: 21}},{name: 1, _id: 1});',
   "db.user.find({age: {$gte: 21}, name: 'julio', contribs: { $in: [ 'ALGOL', 'Lisp' ]}},{name: 1, _id: 1});",
   "db.user.find({age: {$gte: 21}, name: 'julio', contribs: { $in: [ 33, 2 ]}},{name: 1, _id: 1});",
@@ -16,7 +16,7 @@ const mongoQueries = [
 const runTest = () => {
   mongoQueries.map(mongoQuery => {
     try {
-      const SQLQuery = produceSQL(mongoQuery)
+      const SQLQuery = produceSQL(mongoQuery, true)
       console.log('\x1b[32m', 'Successfully Converted', '\x1b[0m')
       console.log('Converted FROM: ')
       console.log('-- ' + mongoQuery)

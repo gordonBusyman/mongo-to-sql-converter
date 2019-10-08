@@ -1,6 +1,6 @@
 {
   "name": "mongo-to-sql-converter",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "MongoDB queries to SQL converter",
   "scripts": {
     "test": "standard && jest",

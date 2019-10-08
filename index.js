@@ -9,13 +9,9 @@ const {
 const { MONGO_QUERY_OPERATOR } = require('./src/constants')
 
 var produceSQL = (input) => {
-  try {
-    const { fromClausePrepared, queryStatements } = parseStructure(input.trim())
-    const { whereClausePrepared, selectClausePrepared } = parseStatements(queryStatements.trim())
-    return buildSQL({ selectClausePrepared, fromClausePrepared, whereClausePrepared })
-  } catch (err) {
-    throw Error(err)
-  }
+  const { fromClausePrepared, queryStatements } = parseStructure(input.trim())
+  const { whereClausePrepared, selectClausePrepared } = parseStatements(queryStatements.trim())
+  return buildSQL({ selectClausePrepared, fromClausePrepared, whereClausePrepared })
 }
 
 /**

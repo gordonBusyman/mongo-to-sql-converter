@@ -25,5 +25,12 @@
     "hooks": {
       "pre-commit": "npm run test"
     }
-  }
+  },
+  "keywords": [
+    "mongodb",
+    "sql",
+    "translator",
+    "parser",
+    "query"
+  ]
 }

@@ -1,25 +1,25 @@
 {
   "name": "mongo-to-sql-converter",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "MongoDB queries to SQL converter",
   "scripts": {
     "test": "standard && jest",
     "demo": "node ./src/test/check.js"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/gordonBusyman/mongo-to-sql-converter"
+    "type": "git",
+    "url": "https://github.com/gordonBusyman/mongo-to-sql-converter"
   },
   "author": "Ivan Tarbakou",
   "license": "MIT",
   "dependencies": {
-    "json5": "^2.1.0",
+    "json5": "^2.1.3",
     "mongo-parse": "^2.1.0"
   },
   "devDependencies": {
-    "husky": "^3.0.7",
+    "husky": "^3.1.0",
     "jest": "^24.9.0",
-    "standard": "^14.3.1"
+    "standard": "^14.3.4"
   },
   "husky": {
     "hooks": {

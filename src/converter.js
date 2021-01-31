@@ -8,7 +8,7 @@ const {
 } = require('./utils')
 const { MONGO_QUERY_OPERATOR } = require('./constants')
 
-var produceSQL = (input, removeUnderscoreBeforeID) => {
+const produceSQL = (input, removeUnderscoreBeforeID) => {
   const { fromClausePrepared, queryStatements } = parseStructure(input.trim())
   const { whereClausePrepared, selectClausePrepared } = parseStatements(queryStatements.trim())
 
@@ -109,6 +109,8 @@ const parseStatements = (originalStatements) => {
   const selectClausePrepared = selectParsed.parts.reduce((prev, curr) => {
     if (curr.operand === 1) {
       return [...prev, curr.field]
+    } else {
+      return null
     }
   }, [])
 
@@ -161,8 +163,8 @@ const buildSQL = (describedQuery, removeUnderscoreBeforeID) => {
   const { selectClausePrepared, fromClausePrepared, whereClausePrepared } = describedQuery
 
   if (removeUnderscoreBeforeID) {
-    selectClausePrepared.map((field, index) => {
-      if (field === '_id') {
+    selectClausePrepared.forEach((element, index) => {
+      if (element === '_id') {
         selectClausePrepared[index] = 'id'
       }
     })

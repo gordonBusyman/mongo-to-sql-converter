@@ -14,7 +14,7 @@ const mongoQueries = [
 ]
 
 const runTest = () => {
-  mongoQueries.map(mongoQuery => {
+  mongoQueries.forEach(mongoQuery => {
     try {
       const SQLQuery = produceSQL(mongoQuery, true)
       console.log('\x1b[32m', 'Successfully Converted', '\x1b[0m')

@@ -47,7 +47,7 @@ const parser = require('../converter')
 
 describe('General functionality', () => {
   it('should translate MongoDB queries into SQL-like queries', () => {
-    mongoQueries.proper.map(mockedQuery => {
+    mongoQueries.proper.forEach((mockedQuery) => {
       let outputString
       try {
         outputString = parser.produceSQL(mockedQuery.input)
@@ -59,7 +59,7 @@ describe('General functionality', () => {
   })
 
   it('should translate MongoDB queries into SQL-like queries removing undescore before id', () => {
-    mongoQueries.proper.map(mockedQuery => {
+    mongoQueries.proper.forEach((mockedQuery) => {
       let outputString
       try {
         outputString = parser.produceSQL(mockedQuery.input, { changeUnerscoreID: true })
